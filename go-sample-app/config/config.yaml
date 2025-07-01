@@ -4,11 +4,11 @@ port: 8080
 environment: "development"
 
 database:
-  host: "localhost"
+  host: "this-val-loaded-from-remote"
   port: 5432
-  username: "postgres"
-  password: "password"
-  database: "sample_db"
+  username: "postgres-from-remote"
+  password: "password-from-remote"
+  database: "sample_db-from-remote"
 
 features:
   task_processing: true
