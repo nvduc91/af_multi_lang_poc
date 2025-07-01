@@ -1,0 +1,17 @@
+{"timestamp":"2025-06-30T05:17:43.380706","level":"info","event":"DAG bundles loaded: dags-folder, example_dags","logger":"airflow.dag_processing.bundles.manager.DagBundlesManager"}
+{"timestamp":"2025-06-30T05:17:43.381083","level":"info","event":"Filling up the DagBag from /opt/airflow/dags/dag_sample_test.py","logger":"airflow.models.dagbag.DagBag"}
+{"timestamp":"2025-06-30T05:17:43.390342","level":"info","event":"Done. Returned value was: None","logger":"airflow.task.operators.airflow.providers.standard.operators.python.PythonOperator"}
+{"timestamp":"2025-06-30T05:17:43.595808Z","level":"info","event":"Task instance is in running state","chan":"stdout","logger":"task"}
+{"timestamp":"2025-06-30T05:17:43.596051Z","level":"info","event":" Previous state of the Task instance: queued","chan":"stdout","logger":"task"}
+{"timestamp":"2025-06-30T05:17:43.596115Z","level":"info","event":"Current task name:print_airflow_info","chan":"stdout","logger":"task"}
+{"timestamp":"2025-06-30T05:17:43.596200Z","level":"info","event":"Dag name:sample_worker_info","chan":"stdout","logger":"task"}
+{"timestamp":"2025-06-30T05:17:43.596299Z","level":"info","event":"==================================================","chan":"stdout","logger":"task"}
+{"timestamp":"2025-06-30T05:17:43.596357Z","level":"info","event":"AIRFLOW INFORMATION","chan":"stdout","logger":"task"}
+{"timestamp":"2025-06-30T05:17:43.596411Z","level":"info","event":"==================================================","chan":"stdout","logger":"task"}
+{"timestamp":"2025-06-30T05:17:43.596463Z","level":"info","event":"Airflow Version: 3.0.0","chan":"stdout","logger":"task"}
+{"timestamp":"2025-06-30T05:17:43.596514Z","level":"info","event":"asyncpg Version: 0.30.0","chan":"stdout","logger":"task"}
+{"timestamp":"2025-06-30T05:17:43.596589Z","level":"info","event":"✅ asyncpg is available!","chan":"stdout","logger":"task"}
+{"timestamp":"2025-06-30T05:17:43.596704Z","level":"info","event":"==================================================","chan":"stdout","logger":"task"}
+{"timestamp":"2025-06-30T05:17:43.596769Z","level":"info","event":"Task instance in success state","chan":"stdout","logger":"task"}
+{"timestamp":"2025-06-30T05:17:43.596837Z","level":"info","event":" Previous state of the Task instance: running","chan":"stdout","logger":"task"}
+{"timestamp":"2025-06-30T05:17:43.596902Z","level":"info","event":"Task operator:<Task(PythonOperator): print_airflow_info>","chan":"stdout","logger":"task"}

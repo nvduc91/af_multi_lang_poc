@@ -1,0 +1,28 @@
+{"timestamp":"2025-06-30T05:17:40.295471","level":"info","event":"DAG bundles loaded: dags-folder, example_dags","logger":"airflow.dag_processing.bundles.manager.DagBundlesManager"}
+{"timestamp":"2025-06-30T05:17:40.295820","level":"info","event":"Filling up the DagBag from /opt/airflow/dags/dag_sample_test.py","logger":"airflow.models.dagbag.DagBag"}
+{"timestamp":"2025-06-30T05:17:40.305622","level":"info","event":"Done. Returned value was: None","logger":"airflow.task.operators.airflow.providers.standard.operators.python.PythonOperator"}
+{"timestamp":"2025-06-30T05:17:40.333492Z","level":"info","event":"Task instance is in running state","chan":"stdout","logger":"task"}
+{"timestamp":"2025-06-30T05:17:40.333703Z","level":"info","event":" Previous state of the Task instance: queued","chan":"stdout","logger":"task"}
+{"timestamp":"2025-06-30T05:17:40.333793Z","level":"info","event":"Current task name:print_worker_info","chan":"stdout","logger":"task"}
+{"timestamp":"2025-06-30T05:17:40.333876Z","level":"info","event":"Dag name:sample_worker_info","chan":"stdout","logger":"task"}
+{"timestamp":"2025-06-30T05:17:40.333929Z","level":"info","event":"==================================================","chan":"stdout","logger":"task"}
+{"timestamp":"2025-06-30T05:17:40.333978Z","level":"info","event":"WORKER IMAGE INFORMATION","chan":"stdout","logger":"task"}
+{"timestamp":"2025-06-30T05:17:40.334027Z","level":"info","event":"==================================================","chan":"stdout","logger":"task"}
+{"timestamp":"2025-06-30T05:17:40.334077Z","level":"info","event":"Python Version: 3.12.10 (main, Apr  9 2025, 03:37:37) [GCC 12.2.0]","chan":"stdout","logger":"task"}
+{"timestamp":"2025-06-30T05:17:40.334136Z","level":"info","event":"Python Executable: /home/airflow/.local/bin/python","chan":"stdout","logger":"task"}
+{"timestamp":"2025-06-30T05:17:40.334191Z","level":"info","event":"Platform: Linux-6.10.14-linuxkit-aarch64-with-glibc2.36","chan":"stdout","logger":"task"}
+{"timestamp":"2025-06-30T05:17:40.334278Z","level":"info","event":"System: Linux","chan":"stdout","logger":"task"}
+{"timestamp":"2025-06-30T05:17:40.334384Z","level":"info","event":"Machine: aarch64","chan":"stdout","logger":"task"}
+{"timestamp":"2025-06-30T05:17:40.334444Z","level":"info","event":"Processor:","chan":"stdout","logger":"task"}
+{"timestamp":"2025-06-30T05:17:40.334517Z","level":"info","event":"Hostname: fc1085154e1b","chan":"stdout","logger":"task"}
+{"timestamp":"2025-06-30T05:17:40.334573Z","level":"info","event":"Current Working Directory: /opt/airflow","chan":"stdout","logger":"task"}
+{"timestamp":"2025-06-30T05:17:40.334641Z","level":"info","event":"User: Unknown","chan":"stdout","logger":"task"}
+{"timestamp":"2025-06-30T05:17:40.334742Z","level":"info","event":"UID: 50000","chan":"stdout","logger":"task"}
+{"timestamp":"2025-06-30T05:17:40.334801Z","level":"info","event":"Container ID: fc1085154e1b","chan":"stdout","logger":"task"}
+{"timestamp":"2025-06-30T05:17:40.334851Z","level":"info","event":"AIRFLOW_HOME: /opt/airflow","chan":"stdout","logger":"task"}
+{"timestamp":"2025-06-30T05:17:40.334915Z","level":"info","event":"AIRFLOW_UID: 50000","chan":"stdout","logger":"task"}
+{"timestamp":"2025-06-30T05:17:40.334975Z","level":"info","event":"Running in Docker container: Yes","chan":"stdout","logger":"task"}
+{"timestamp":"2025-06-30T05:17:40.335025Z","level":"info","event":"==================================================","chan":"stdout","logger":"task"}
+{"timestamp":"2025-06-30T05:17:40.335074Z","level":"info","event":"Task instance in success state","chan":"stdout","logger":"task"}
+{"timestamp":"2025-06-30T05:17:40.335121Z","level":"info","event":" Previous state of the Task instance: running","chan":"stdout","logger":"task"}
+{"timestamp":"2025-06-30T05:17:40.335168Z","level":"info","event":"Task operator:<Task(PythonOperator): print_worker_info>","chan":"stdout","logger":"task"}

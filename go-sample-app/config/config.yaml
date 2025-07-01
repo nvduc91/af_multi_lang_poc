@@ -1,0 +1,22 @@
+app_name: "go-sample-app"
+version: "1.0.0"
+port: 8080
+environment: "development"
+
+database:
+  host: "localhost"
+  port: 5432
+  username: "postgres"
+  password: "password"
+  database: "sample_db"
+
+features:
+  task_processing: true
+  metrics_collection: true
+  health_checks: true
+  remote_config: true
+
+metadata:
+  description: "Sample GO application for Airflow Kubernetes integration"
+  author: "Airflow Team"
+  repository: "https://github.com/your-org/go-sample-app"
