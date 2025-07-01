@@ -77,7 +77,7 @@ run_go_app_remote_config = KubernetesPodOperator(
     arguments=['--config-type=remote'],
     env_vars=[
         k8s_models.V1EnvVar(name='CONFIG_TYPE', value='remote'),
-        k8s_models.V1EnvVar(name='CONFIG_REMOTE_URL', value='https://raw.githubusercontent.com/your-repo/config/main/config.yaml'),
+        k8s_models.V1EnvVar(name='CONFIG_REMOTE_URL', value='https://raw.githubusercontent.com/nvduc91/af_multi_lang_poc/main/go-sample-app/config/config.yaml'),
     ],
     get_logs=True,
     is_delete_operator_pod=True,

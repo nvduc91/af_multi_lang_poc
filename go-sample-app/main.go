@@ -7,6 +7,7 @@ import (
 	"fmt"
 	"io"
 	"net/http"
+	"net/url"
 	"os"
 	"strings"
 	"time"
@@ -88,13 +89,15 @@ func loadConfig(configType string) (*Config, error) {
 	return &config, nil
 }
 
-func loadRemoteConfig(url string) error {
+func loadRemoteConfig(configURL string) error {
 	// Convert GitHub web URL to raw content URL if needed
-	rawURL := convertToRawURL(url)
+	rawURL := convertToRawURL(configURL)
 	logrus.Infof("Loading remote config from: %s", rawURL)
 
 	// Create HTTP client with authentication for private repos
-	client := &http.Client{}
+	client := &http.Client{
+		Timeout: 30 * time.Second,
+	}
 	req, err := http.NewRequest("GET", rawURL, nil)
 	if err != nil {
 		return fmt.Errorf("failed to create request: %w", err)
@@ -108,6 +111,23 @@ func loadRemoteConfig(url string) error {
 
 	// Add User-Agent header (GitHub requires this)
 	req.Header.Set("User-Agent", "go-sample-app/1.0")
+
+	// Add cache-busting headers to ensure we get the latest version
+	req.Header.Set("Cache-Control", "no-cache, no-store, must-revalidate")
+	req.Header.Set("Pragma", "no-cache")
+	req.Header.Set("Expires", "0")
+
+	// Add timestamp to URL to bypass cache
+	timestamp := time.Now().Unix()
+	cacheBustURL := rawURL
+	if strings.Contains(rawURL, "?") {
+		cacheBustURL += fmt.Sprintf("&_t=%d", timestamp)
+	} else {
+		cacheBustURL += fmt.Sprintf("?_t=%d", timestamp)
+	}
+	req.URL, _ = url.Parse(cacheBustURL)
+
+	logrus.Infof("Making request to: %s", req.URL.String())
 
 	resp, err := client.Do(req)
 	if err != nil {
@@ -124,6 +144,9 @@ func loadRemoteConfig(url string) error {
 		return fmt.Errorf("failed to read response body: %w", err)
 	}
 
+	logrus.Infof("Received config content (%d bytes):", len(body))
+	logrus.Infof("Config content preview: %s", string(body[:min(len(body), 200)]))
+
 	if err := viper.ReadConfig(bytes.NewReader(body)); err != nil {
 		// Try to parse as JSON
 		var jsonConfig map[string]interface{}
@@ -135,6 +158,14 @@ func loadRemoteConfig(url string) error {
 		}
 	}
 	return nil
+}
+
+// min returns the minimum of two integers
+func min(a, b int) int {
+	if a < b {
+		return a
+	}
+	return b
 }
 
 // convertToRawURL converts GitHub web URLs to raw content URLs

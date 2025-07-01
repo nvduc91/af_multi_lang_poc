@@ -110,6 +110,17 @@ setup_kubeconfig() {
     print_success "Kubernetes configuration updated!"
 }
 
+# Ensure kubeconfig is up-to-date after Minikube restarts
+refresh_kubeconfig_and_restart_airflow() {
+    print_status "Refreshing kubeconfig and restarting Airflow services..."
+    setup_kubeconfig
+    print_status "Stopping Airflow services (if running)..."
+    docker-compose down 2>/dev/null || true
+    print_status "Starting Airflow services..."
+    docker-compose up -d
+    print_success "Airflow services restarted with updated kubeconfig!"
+}
+
 # Start Airflow services
 start_airflow() {
     print_status "Starting Airflow services..."
@@ -194,10 +205,9 @@ main() {
     
     check_prerequisites
     start_minikube
+    refresh_kubeconfig_and_restart_airflow
     build_go_app
     build_airflow
-    setup_kubeconfig
-    start_airflow
     wait_for_airflow
     cleanup_pods
     show_final_info
