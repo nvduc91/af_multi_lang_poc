@@ -8,6 +8,7 @@ import (
 	"io"
 	"net/http"
 	"os"
+	"strings"
 	"time"
 
 	"github.com/sirupsen/logrus"
@@ -88,7 +89,27 @@ func loadConfig(configType string) (*Config, error) {
 }
 
 func loadRemoteConfig(url string) error {
-	resp, err := http.Get(url)
+	// Convert GitHub web URL to raw content URL if needed
+	rawURL := convertToRawURL(url)
+	logrus.Infof("Loading remote config from: %s", rawURL)
+
+	// Create HTTP client with authentication for private repos
+	client := &http.Client{}
+	req, err := http.NewRequest("GET", rawURL, nil)
+	if err != nil {
+		return fmt.Errorf("failed to create request: %w", err)
+	}
+
+	// Add GitHub token if available for private repos
+	if token := os.Getenv("GITHUB_TOKEN"); token != "" {
+		req.Header.Set("Authorization", "token "+token)
+		logrus.Info("Using GitHub token for authentication")
+	}
+
+	// Add User-Agent header (GitHub requires this)
+	req.Header.Set("User-Agent", "go-sample-app/1.0")
+
+	resp, err := client.Do(req)
 	if err != nil {
 		return fmt.Errorf("failed to fetch remote config: %w", err)
 	}
@@ -114,6 +135,40 @@ func loadRemoteConfig(url string) error {
 		}
 	}
 	return nil
+}
+
+// convertToRawURL converts GitHub web URLs to raw content URLs
+func convertToRawURL(url string) string {
+	// If it's already a raw URL, return as is
+	if len(url) > 7 && url[:7] == "https://raw.githubusercontent.com" {
+		return url
+	}
+
+	// Convert GitHub web URL to raw URL
+	// From: https://github.com/user/repo/blob/branch/path/to/file
+	// To:   https://raw.githubusercontent.com/user/repo/branch/path/to/file
+	if len(url) > 18 && url[:18] == "https://github.com" {
+		// Replace "github.com" with "raw.githubusercontent.com"
+		// Remove "/blob" from the path
+		url = "https://raw.githubusercontent.com" + url[18:]
+		url = strings.Replace(url, "/blob/", "/", 1)
+		return url
+	}
+
+	// Support SSH URLs (for private repos with SSH access)
+	// From: git@github.com:user/repo.git/blob/branch/path/to/file
+	// To:   https://raw.githubusercontent.com/user/repo/branch/path/to/file
+	if strings.HasPrefix(url, "git@github.com:") {
+		// Extract the path after github.com:
+		path := strings.TrimPrefix(url, "git@github.com:")
+		// Remove .git if present
+		path = strings.TrimSuffix(path, ".git")
+		// Remove /blob/ and convert to raw URL
+		path = strings.Replace(path, "/blob/", "/", 1)
+		return "https://raw.githubusercontent.com/" + path
+	}
+
+	return url
 }
 
 func main() {
